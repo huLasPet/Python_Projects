@@ -1,4 +1,4 @@
 from morse_converter import Converter
 
-testing = Converter("Test message")
+testing = Converter("Testing message")
 print(testing.convert())
