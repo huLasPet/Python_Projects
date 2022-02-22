@@ -16,7 +16,8 @@ MORSE_CODE_DICT = {'A': '.-', 'B': '-...',
 
 
 class Converter:
-    """Morse code converter. Takes a message and returns it in Morse code."""
+    """Morse code converter. Takes a message and returns it in Morse code.
+    Ignores characters that are not in the International Morse code table."""
 
     def __init__(self):
         self.converted_list = []
