@@ -41,5 +41,6 @@ while win != True:
     players("Player 1", "X")
     check_win()
     players("Player 2", "O")
+    check_win()
 
 
