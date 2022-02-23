@@ -27,6 +27,10 @@ def players(player, symbol):
             continue
 
 
+def check_win():
+    pass
+
+
 print("Welcome to a text based Tic Tac Toe game. \n"
       "The rows are called top, middle and bottom.\n"
       "The columns are called left, middle and right.\n"
@@ -35,6 +39,7 @@ print("-" * 110)
 
 while win != True:
     players("Player 1", "X")
+    check_win()
     players("Player 2", "O")
 
 
