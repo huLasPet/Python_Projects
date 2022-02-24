@@ -2,10 +2,10 @@ ttt_dict = {"top": {"left": " ", "middle": " ", "right": " "},
             "middle": {"left": " ", "middle": " ", "right": " "},
             "bottom": {"left": " ", "middle": " ", "right": " "},
             }
-win = False
 
 
 def draw_board():
+    """Draws the board."""
     print(f"{ttt_dict['top']['left']} | {ttt_dict['top']['middle']} | {ttt_dict['top']['right']}")
     print("-" * 9)
     print(f"{ttt_dict['middle']['left']} | {ttt_dict['middle']['middle']} | {ttt_dict['middle']['right']}")
@@ -15,6 +15,7 @@ def draw_board():
 
 
 def players(player, symbol):
+    """Asks the player to specify the spot where they want their mark and check if that spot if free or not."""
     while True:
         row, column = input(f"{player}: What row and column do you want to put an {symbol} to? ").split()
         if ttt_dict[row][column] == " ":
@@ -28,7 +29,16 @@ def players(player, symbol):
 
 
 def check_win():
-    pass
+    """Check all the possible win combinations, each one in a different line."""
+    if (ttt_dict["top"]["left"] == ttt_dict["top"]["middle"] == ttt_dict["top"]["right"] != " " or
+            ttt_dict["middle"]["left"] == ttt_dict["middle"]["middle"] == ttt_dict["middle"]["right"] != " " or
+            ttt_dict["bottom"]["left"] == ttt_dict["bottom"]["middle"] == ttt_dict["bottom"]["right"] != " " or
+            ttt_dict["top"]["left"] == ttt_dict["middle"]["middle"] == ttt_dict["bottom"]["right"] != " " or
+            ttt_dict["top"]["right"] == ttt_dict["middle"]["middle"] == ttt_dict["bottom"]["left"] != " " or
+            ttt_dict["top"]["right"] == ttt_dict["middle"]["right"] == ttt_dict["bottom"]["right"] != " " or
+            ttt_dict["top"]["middle"] == ttt_dict["middle"]["middle"] == ttt_dict["bottom"]["middle"] != " " or
+            ttt_dict["top"]["left"] == ttt_dict["middle"]["left"] == ttt_dict["bottom"]["left"] != " "):
+        return True
 
 
 print("Welcome to a text based Tic Tac Toe game. \n"
@@ -37,10 +47,12 @@ print("Welcome to a text based Tic Tac Toe game. \n"
       "To choose where to put your mark type in the row and column separated by a space, for example: 'top middle'")
 print("-" * 110)
 
-while win != True:
+while True:
     players("Player 1", "X")
-    check_win()
+    if check_win() is True:
+        print("Player 1 wins.")
+        break
     players("Player 2", "O")
-    check_win()
-
-
+    if check_win() is True:
+        print("Player 2 wins.")
+        break
