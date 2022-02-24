@@ -44,7 +44,7 @@ def check_win():
 print("Welcome to a text based Tic Tac Toe game. \n"
       "The rows are called top, middle and bottom.\n"
       "The columns are called left, middle and right.\n"
-      "To choose where to put your mark type in the row and column separated by a space, for example: 'top middle'")
+      "To choose where to put your mark type in the row and column separated by a space, for example: 'top middle'.")
 print("-" * 110)
 
 while True:
