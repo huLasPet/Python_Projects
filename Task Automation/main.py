@@ -8,7 +8,8 @@
 
 from PIL import Image
 import pytesseract
-import re
+import re, pyautogui, time, pyperclip
+import pygetwindow as gw
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\hulaspet\DEV\Python_shared_files\Tesseract\tesseract.exe"
 
@@ -18,6 +19,17 @@ class DataBaseCleanUp:
         self.data = ""
         self.ids = []
         self.im = ""
+
+    def enter_db(self):
+        win = gw.getWindowsWithTitle('hulaspet@A-241Y0F3: ~')[0]
+        win.activate()
+        win.maximize()
+        pyautogui.write('mongo\n')
+        pyautogui.write('use dfm\n')
+        time.sleep(1)
+        pyperclip.copy(r'db.dfm_nodeBatchList.aggregate([{"$group" : {_id:"$nodeId", count:{$sum:1}}},{$sort:{"count":-1}}])')
+        pyautogui.click(button='right')
+        pyautogui.press('enter')
 
     def get_screenshot(self):
         # Temp version for testing
@@ -29,6 +41,7 @@ class DataBaseCleanUp:
 
 
 cleanup = DataBaseCleanUp()
+cleanup.enter_db()
 cleanup.get_screenshot()
 cleanup.get_ids()
 for till_id in cleanup.ids:
