@@ -30,6 +30,7 @@ def enter_db():
 
 class DataBaseCleanUp:
     """Handles the daily DB cleanup that was done manually before."""
+
     def __init__(self):
         self.data = ""
         self.ids = []
@@ -44,7 +45,6 @@ class DataBaseCleanUp:
         """Gets the text from the screenshot and finds all till IDs."""
         self.data = pytesseract.image_to_string(self.im, config="--psm 6")
         self.ids = re.findall('"\d\d\d"|"\d\d\d\d"?', self.data)
-
 
 
 cleanup = DataBaseCleanUp()
