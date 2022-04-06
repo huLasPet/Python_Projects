@@ -26,6 +26,7 @@ def enter_db():
     pyperclip.copy(os.getenv('list_tills'))
     pyautogui.click(button='right')
     pyautogui.press('enter')
+    time.sleep(2)
 
 
 class DataBaseCleanUp:
@@ -54,4 +55,4 @@ for till_id in cleanup.ids:
     pyperclip.copy(f'db.dfm_nodeBatchList.deleteMany({{"nodeId": {till_id}}})')
     pyautogui.click(button='right')
     pyautogui.press('enter')
-    time.sleep(0.3)
+    time.sleep(0.5)
