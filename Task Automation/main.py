@@ -27,6 +27,15 @@ def enter_db():
     pyautogui.click(button='right')
     pyautogui.press('enter')
     time.sleep(2)
+    pyautogui.write('it\n')
+    time.sleep(2)
+
+
+def get_count():
+    """Get a count of all deltas in the DB."""
+    pyperclip.copy(os.getenv('dfm_number'))
+    pyautogui.click(button='right')
+    pyautogui.press('enter')
 
 
 class DataBaseCleanUp:
@@ -56,3 +65,4 @@ for till_id in cleanup.ids:
     pyautogui.click(button='right')
     pyautogui.press('enter')
     time.sleep(1)
+get_count()
