@@ -32,21 +32,21 @@ class DataBaseCleanUp:
     def enter_db():
         """Focuses on the window with the SSH session to the DB server
         Enters the DB and lists all tills with their delta count."""
-    win = gw.getWindowsWithTitle(os.getenv('focus_window'))[0]
-    win.activate()
-    win.maximize()
-    pyautogui.hotkey('ctrl', 'c')
-    pyautogui.write('clear\n')
-    pyautogui.write('mongo\n')
-    pyautogui.write(os.getenv('dfm'))
-    pyautogui.press('enter')
-    time.sleep(1)
-    pyperclip.copy(os.getenv('list_tills'))
-    pyautogui.click(button='right')
-    pyautogui.press('enter')
-    time.sleep(2)
-    pyautogui.write('it\n')
-    time.sleep(2)
+        win = gw.getWindowsWithTitle(os.getenv('focus_window'))[0]
+        win.activate()
+        win.maximize()
+        pyautogui.hotkey('ctrl', 'c')
+        pyautogui.write('clear\n')
+        pyautogui.write('mongo\n')
+        pyautogui.write(os.getenv('dfm'))
+        pyautogui.press('enter')
+        time.sleep(1)
+        pyperclip.copy(os.getenv('list_tills'))
+        pyautogui.click(button='right')
+        pyautogui.press('enter')
+        time.sleep(2)
+        pyautogui.write('it\n')
+        time.sleep(2)
 
     @staticmethod
     def get_count():
