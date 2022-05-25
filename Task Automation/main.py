@@ -26,7 +26,7 @@ class DataBaseCleanUp:
     def get_ids(self):
         """Gets the text from the screenshot and finds all till IDs."""
         self.data = pytesseract.image_to_string(self.im, config="--psm 6")
-        self.ids = re.findall('"\d\d\d"|"\d\d\d\d"?', self.data)
+        self.ids = re.findall('"\d\d"|"\d\d\d"|"\d\d\d\d"?', self.data)
 
     @staticmethod
     def enter_db():
@@ -45,8 +45,8 @@ class DataBaseCleanUp:
         pyautogui.click(button='right')
         pyautogui.press('enter')
         time.sleep(2)
-        pyautogui.write('it\n')
-        time.sleep(2)
+        #pyautogui.write('it\n')
+        #time.sleep(2)
 
     @staticmethod
     def get_count():
