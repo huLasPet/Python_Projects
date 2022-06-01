@@ -5,6 +5,7 @@ import re
 import time
 import pygetwindow as gw
 import pytesseract
+import webbrowser
 from dotenv import load_dotenv
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Users\hulaspet\DEV\Python_shared_files\Tesseract\tesseract.exe"
@@ -55,12 +56,20 @@ class DataBaseCleanUp:
         pyautogui.click(button='right')
         pyautogui.press('enter')
 
+    @staticmethod
+    def dfm_maintenance():
+        """Remove entries older than 14 days from reporting."""
+        webbrowser.open_new_tab(os.getenv('url1'))
+        time.sleep(20)
+        webbrowser.open_new_tab(os.getenv('url2'))
+
 
 if __name__ == "__main__":
     cleanup = DataBaseCleanUp()
     cleanup.enter_db()
     cleanup.get_screenshot()
     cleanup.get_ids()
+    cleanup.dfm_maintenance()
     for till_id in cleanup.ids:
         pyperclip.copy(f'db.dfm_nodeBatchList.deleteMany({{"nodeId": {till_id}}})')
         pyautogui.click(button='right')
