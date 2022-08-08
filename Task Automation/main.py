@@ -30,7 +30,7 @@ class DataBaseCleanUp:
         self.ids = re.findall('"\d\d"|"\d\d\d"|"\d\d\d\d"?', self.data)
 
     @staticmethod
-    def enter_db():
+    def enter_db(list_status, delay):
         """Focuses on the window with the SSH session to the DB server
         Enters the DB and lists all tills with their delta count."""
         win = gw.getWindowsWithTitle(os.getenv('focus_window'))[0]
@@ -42,12 +42,12 @@ class DataBaseCleanUp:
         pyautogui.write(os.getenv('dfm'))
         pyautogui.press('enter')
         time.sleep(1)
-        pyperclip.copy(os.getenv('list_tills'))
+        pyperclip.copy(os.getenv(list_status))
         pyautogui.click(button='right')
         pyautogui.press('enter')
-        time.sleep(2)
-        #pyautogui.write('it\n')
-        #time.sleep(2)
+        time.sleep(delay)
+        pyautogui.write('it\n')
+        time.sleep(delay)
 
     @staticmethod
     def get_count():
@@ -55,24 +55,45 @@ class DataBaseCleanUp:
         pyperclip.copy(os.getenv('dfm_number'))
         pyautogui.click(button='right')
         pyautogui.press('enter')
+        pyperclip.copy(os.getenv('dfm_status_number'))
+        pyautogui.click(button='right')
+        pyautogui.press('enter')
 
     @staticmethod
     def dfm_maintenance():
         """Remove entries older than 14 days from reporting."""
         webbrowser.open_new_tab(os.getenv('url1'))
-        time.sleep(20)
+        time.sleep(30)
         webbrowser.open_new_tab(os.getenv('url2'))
 
 
 if __name__ == "__main__":
     cleanup = DataBaseCleanUp()
-    cleanup.enter_db()
-    cleanup.get_screenshot()
-    cleanup.get_ids()
-    cleanup.dfm_maintenance()
-    for till_id in cleanup.ids:
-        pyperclip.copy(f'db.dfm_nodeBatchList.deleteMany({{"nodeId": {till_id}}})')
-        pyautogui.click(button='right')
-        pyautogui.press('enter')
-        time.sleep(1)
+    #1 - List, 2 - Status, 3 - Both
+    clean_what = 2
+
+    #BatchList cleanup
+    if clean_what == 1 or clean_what == 3:
+        cleanup.enter_db("list_tills", 5)
+        cleanup.get_screenshot()
+        cleanup.get_ids()
+        for till_id in cleanup.ids:
+            pyperclip.copy(f'db.dfm_nodeBatchList.deleteMany({{"nodeId": {till_id}}})')
+            pyautogui.click(button='right')
+            pyautogui.press('enter')
+            time.sleep(1)
+
+    #BatchStatus cleanup
+    if clean_what == 2 or clean_what == 3:
+        cleanup.enter_db("list_status", 10)
+        cleanup.get_screenshot()
+        cleanup.get_ids()
+        for till_id in cleanup.ids:
+            pyperclip.copy(f'db.dfm_nodeBatchStatus.deleteMany({{"nodeId": {till_id}}})')
+            pyautogui.click(button='right')
+            pyautogui.press('enter')
+            time.sleep(3)
+
     cleanup.get_count()
+    #cleanup.dfm_maintenance()
+
