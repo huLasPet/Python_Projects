@@ -69,19 +69,24 @@ class DataBaseCleanUp:
 
 if __name__ == "__main__":
     cleanup = DataBaseCleanUp()
-    #1 - List, 2 - Status, 3 - Both
-    clean_what = 1
+    #1 - List, 2 - Status, 3 - Both, 4 - Just DFM maint
+    clean_what = 2
 
     #BatchList cleanup
     if clean_what == 1 or clean_what == 3:
-        cleanup.enter_db("list_tills", 5)
-        cleanup.get_screenshot()
-        cleanup.get_ids()
-        for till_id in cleanup.ids:
-            pyperclip.copy(f'db.dfm_nodeBatchList.deleteMany({{"nodeId": {till_id}}})')
-            pyautogui.click(button='right')
-            pyautogui.press('enter')
-            time.sleep(1)
+        i = 0
+        while i <= 2:
+            cleanup.enter_db("list_tills", 5)
+            cleanup.get_screenshot()
+            cleanup.get_ids()
+            for till_id in cleanup.ids:
+                pyperclip.copy(f'db.dfm_nodeBatchList.deleteMany({{"nodeId": {till_id}}})')
+                pyautogui.click(button='right')
+                pyautogui.press('enter')
+                time.sleep(1)
+        i += 1
+        print(f"Round {i} done.")
+        cleanup.get_count()
 
     #BatchStatus cleanup
     if clean_what == 2 or clean_what == 3:
@@ -97,7 +102,7 @@ if __name__ == "__main__":
                 time.sleep(3)
             i += 1
             print(f"Round {i} done.")
+            cleanup.get_count()
 
-    cleanup.get_count()
     cleanup.dfm_maintenance()
 
