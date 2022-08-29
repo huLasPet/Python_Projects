@@ -70,7 +70,7 @@ class DataBaseCleanUp:
 if __name__ == "__main__":
     cleanup = DataBaseCleanUp()
     #1 - List, 2 - Status, 3 - Both, 4 - Just DFM maint
-    clean_what = 2
+    clean_what = 3
 
     #BatchList cleanup
     if clean_what == 1 or clean_what == 3:
@@ -84,8 +84,8 @@ if __name__ == "__main__":
                 pyautogui.click(button='right')
                 pyautogui.press('enter')
                 time.sleep(1)
-        i += 1
-        print(f"Round {i} done.")
+            i += 1
+            print(f"Round {i} done.")
         cleanup.get_count()
 
     #BatchStatus cleanup
